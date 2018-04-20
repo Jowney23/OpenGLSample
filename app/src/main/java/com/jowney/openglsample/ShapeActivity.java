@@ -44,4 +44,6 @@ public class ShapeActivity extends AppCompatActivity {
     public void goSample06(View view){
         startActivity(new Intent(this, OpenGLSample06Activity.class));
     }
+
+//测试Branch
 }
