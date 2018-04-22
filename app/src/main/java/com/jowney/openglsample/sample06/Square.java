@@ -29,7 +29,9 @@ public class Square extends BaseShape {
         //第三步创建gles程序中的变量索引
         getShaderHandle();
         //第四步  获取点的位置
-        vertexBuffer =  getVertices(vertexesCoords);
+        vertexBuffer =  getVertices(vertexesCoords,4);
+        //获取顶点个数
+        vertexCount = vertexesCoords.length / COORDS_PER_VERTEX;
     }
 
     @Override

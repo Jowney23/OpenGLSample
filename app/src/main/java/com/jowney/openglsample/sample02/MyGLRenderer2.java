@@ -10,15 +10,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class MyGLRenderer2 implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
-    private Square mSquare;
+
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // initialize a triangle
         mTriangle = new Triangle();
         // initialize a square
-        mSquare = new Square();
-    }
+         }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
