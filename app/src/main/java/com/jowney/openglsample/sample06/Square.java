@@ -14,9 +14,17 @@ import com.jowney.openglsample.common.BaseShape;
 public class Square extends BaseShape {
     // 图像顶点坐标以逆时针顺序;
     private final float vertexesCoords[] = {
-            0.0f,  0.622008459f, 0.0f,  // top
-            -0.5f, -0.311004243f, 0.0f, // bottom left
-            0.5f, -0.311004243f, 0.0f   // bottom right
+            0.5f,  0.5f, 0.0f, // top
+            -0.5f, -0.5f, 0.0f, // bottom left
+            0.5f, -0.5f, 0.0f  // bottom right
+
+         /*   1f, -0f, 0.0f, // bottom left
+            -0f,  1f, 0.0f, // top left
+            0f, -0f, 0.0f // bottom right*/
+        /*    -0.3f,  0.6f, 0.0f, // top left
+            0.9f, -0.6f, 0.0f, // bottom right
+            0.9f,  0.6f, 0.0f  // top right
+*/
     };
     private final float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
     //在构造方法里面创建opengl
@@ -59,12 +67,6 @@ public class Square extends BaseShape {
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
-
-        // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-
-        // Disable vertex array
-        GLES20.glDisableVertexAttribArray(mPositionHandle);
 
 
 

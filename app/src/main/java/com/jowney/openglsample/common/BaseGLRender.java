@@ -43,7 +43,6 @@ public abstract class BaseGLRender implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl10) {
         // Set the camera position (View matrix)
 
-
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
