@@ -22,7 +22,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    public  void goSampleShape(View view){
+        startActivity(new Intent(this,ShapeActivity.class));
+    }
     public void goSampleCamera(View view){
         startActivity(new Intent(this, CameraActivity.class));
     }
+
 }
