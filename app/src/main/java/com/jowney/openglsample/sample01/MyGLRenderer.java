@@ -13,7 +13,7 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         // Set this background frame color
         // glClearColor param mean: red, green, blue, alpha
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GLES20.glClearColor(0.7f, 0.6f, 0.0f, 0.0f);
     }
 
     @Override
