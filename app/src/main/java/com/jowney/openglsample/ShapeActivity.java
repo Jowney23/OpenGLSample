@@ -14,6 +14,7 @@ import com.jowney.openglsample.sample03.OpenGLSample03Activity;
 import com.jowney.openglsample.sample04.OpenGLSample04Activity;
 import com.jowney.openglsample.sample05.OpenGLSample05Activity;
 import com.jowney.openglsample.sample06.OpenGLSample06Activity;
+import com.jowney.openglsample.sample07.OpenGLSample07Activity;
 import com.jowney.openglsample.sampleTexture.TexTureActivity;
 
 import java.io.IOException;
@@ -51,7 +52,11 @@ public class ShapeActivity extends AppCompatActivity {
     public void goSample06(View view){
         startActivity(new Intent(this, OpenGLSample06Activity.class));
     }
+    public void goSample07(View view){
+        startActivity(new Intent(this, OpenGLSample07Activity.class));
+    }
     public void goTextureSample(View view){
         startActivity(new Intent(this, TexTureActivity.class));
     }
+
 }

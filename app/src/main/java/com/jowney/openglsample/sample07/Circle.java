@@ -1,58 +1,45 @@
-package com.jowney.openglsample.sample06;
+package com.jowney.openglsample.sample07;
 
 import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
 
 import com.jowney.openglsample.common.BaseShape;
 
+import java.util.ArrayList;
 
 /**
- * Creator: Jowney  (~._.~)
- * Date: 2018/4/15/23:50
- * Description:
+ * Created by Jowney on 2018/4/23.
  */
 
-public class Square extends BaseShape {
-    // 图像顶点坐标以逆时针顺序;
-    private final float vertexesCoords[] = {
-            0.5f,  0.5f, 0.0f, // top
-            -0.5f, -0.5f, 0.0f, // bottom left
-            0.5f, -0.5f, 0.0f  // bottom right
-
-         /*   1f, -0f, 0.0f, // bottom left
-            -0f,  1f, 0.0f, // top left
-            0f, -0f, 0.0f // bottom right*/
-        /*    -0.3f,  0.6f, 0.0f, // top left
-            0.9f, -0.6f, 0.0f, // bottom right
-            0.9f,  0.6f, 0.0f  // top right
-*/
-    };
+public class Circle extends BaseShape {
+    private final float[] vertexesCoords;
     private final float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
-    //在构造方法里面创建opengl
-    public Square() {
-        //第一步加载着色器
-        vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
-        fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
-        //第二步创建gles程序
-        program = createProgram(vertexShader, fragmentShader);
-        //第三步创建gles程序中的变量索引
+    public Circle() {
+        //第一步加载Shader
+        vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,vertexShaderCode);
+        fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,fragmentShaderCode);
+        //第二步骤创建gles程序
+        program = createProgram(vertexShader,fragmentShader);
+        //第三步创建程序中的变量索引
         getShaderHandle();
-        //第四步  获取点的位置
-        vertexBuffer =  getVertices(vertexesCoords,4);
-        //获取顶点个数
-        vertexCount = vertexesCoords.length / COORDS_PER_VERTEX;
+        //第四步获取顶点位置
+        vertexesCoords = createPositions();
+        vertexBuffer = getVertices(vertexesCoords,4);
+        //获取点的个数
+        vertexCount = vertexesCoords.length/COORDS_PER_VERTEX;
     }
 
     @Override
     public void getShaderHandle() {
         mPositionHandle = GLES20.glGetAttribLocation(program,"vPosition");
-        mColorHandle = GLES20.glGetUniformLocation(program, "vColor");
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(program, "uMVPMatrix");
+        mColorHandle = GLES20.glGetUniformLocation(program,"vColor");
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(program,"uMVPMatrix");
+
     }
 
     @Override
     public void draw(float[] mMVPMatrix) {
-        // pass in the calculated transformation matrix
-        // Add program to OpenGL ES environment
+
         GLES20.glUseProgram(program);
 
 
@@ -74,13 +61,34 @@ public class Square extends BaseShape {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
         // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vertexCount);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
 
     }
 
+    private float[]  createPositions(){
+        //切分份数
+        int n = 18;
+        //半径
+        float radius = 0.5f;
+        ArrayList<Float> data=new ArrayList<>();
+        data.add(0.0f);             //设置圆心坐标
+        data.add(0.0f);
+        data.add(0.0f);
+        float angDegSpan=360f/n;
+        for(float i=0;i<360+angDegSpan;i+=angDegSpan){
+            data.add((float) (radius*Math.sin(i*Math.PI/180f)));
+            data.add((float)(radius*Math.cos(i*Math.PI/180f)));
+            data.add(0.0f);
+        }
+        float[] f=new float[data.size()];
+        for (int i=0;i<f.length;i++){
+            f[i]=data.get(i);
+        }
+        return f;
+    }
     /**
      * 顶点着色器代码
      * attribute变量(属性变量)只能用于顶点着色器中，不能用于片元着色器。一般用该变量来表示一些顶点数据，如：顶点坐标、纹理坐标、颜色等
@@ -104,10 +112,11 @@ public class Square extends BaseShape {
      * 片元着色器代码
      */
     private final String fragmentShaderCode =
-                    "precision mediump float;" +  // 设置工作精度
+            "precision mediump float;" +  // 设置工作精度
                     "uniform vec4 vColor;" +  // 应用程序传入着色器的颜色变量
                     "void main() {" +
                     "  gl_FragColor = vColor;" + // 颜色值传给gl_FragColor内建变量，完成片元的着色
                     "}";
+
 
 }

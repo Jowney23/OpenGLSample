@@ -48,6 +48,8 @@
 
         <activity android:name=".sample06.OpenGLSample06Activity" />
 
+        <activity android:name=".sample07.OpenGLSample07Activity"/>
+
         <activity android:name=".sampleTexture.TexTureActivity" />
     </application>
 
